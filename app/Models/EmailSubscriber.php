@@ -8,6 +8,7 @@ class EmailSubscriber extends Model
 {
     protected $fillable = [
         'email',
-        'location'
+        'location',
+        'is_notified'
     ];
 }
