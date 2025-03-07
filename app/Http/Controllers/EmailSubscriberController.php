@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\NewSubscriberMailJob;
 use App\Models\EmailSubscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EmailSubscriberController extends Controller
 {
@@ -19,10 +21,16 @@ class EmailSubscriberController extends Controller
             $subscriber = new EmailSubscriber();
             $subscriber->email = $request->query('email');
             $subscriber->location = $request->query('location');
-            $subscriber->save();
+            $saved = $subscriber->save();
 
             //Schedule a notification email to let the subscriber know that he has subscibed
             //TODO
+            if ($saved) {
+                NewSubscriberMailJob::dispatch($subscriber);
+                // $subscriber->is_notified = true;
+                // $subscriber->save();
+            }
+
         } catch (\Exception $e) {
             // return eror
             return response()->json(['error' => $e->getMessage()], 400);

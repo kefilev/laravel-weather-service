@@ -9,18 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WeatherReportMail extends Mailable
+class NewSubscriberMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    private $data;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct(public $subscriber)
     {
-        $this->data = $data;
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class WeatherReportMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Weather Report Mail',
+            subject: 'Welcome to Laravel Daily Weather Report',
         );
     }
 
@@ -39,7 +37,7 @@ class WeatherReportMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.weather-report',
+            view: 'email.new-subscriber',
         );
     }
 
