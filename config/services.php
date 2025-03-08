@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'weatherstack' => [
+        'address'=> env('WEATHERSTACK_ADDRESS'),
+        'api_key'=> env('WEATHERSTACK_API_KEY')
+    ]
+
 ];

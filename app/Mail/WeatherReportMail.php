@@ -13,14 +13,12 @@ class WeatherReportMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $data;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct(public $subscriber, public $data)
     {
-        $this->data = $data;
+        //
     }
 
     /**
