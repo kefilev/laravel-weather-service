@@ -1,18 +1,18 @@
 # Laravel email subscription service App for automatic weather reports
 
-This is a simple weather subscription service built with Laravel 12 that lets users subscribe to the service trough API (using get requests) and receive everyday weather reports by email. The app uses weatherstack.com to retrive weather data but can easily be configured to use any other service.
+This is a simple weather subscription service built with Laravel 12 that lets users subscribe to the service trough API (using get requests) and receive everyday weather reports by email. The app uses weatherstack.com to retrieve weather data but can easily be configured to use any other service.
 
 ## Requirements
 
-Web `server` like Apache, nginx or XAMPP with `PHP 8.2` and `MySQL`. Also install `composer` and `artisan` (if you install Laravel globaly from the Laravel Installer this will include artisan for your system).
+Web `server` like Apache, nginx or XAMPP with `PHP 8.2` and `MySQL`. Also install `composer` and `artisan` (if you install Laravel globally from the Laravel Installer this will include artisan for your system).
 
 ## Configuration
 
 Run in console:
 
-`composer install` to install the PHP dependancies in vendor folder
+`composer install` to install the PHP dependencies in vendor folder
 
-`npm install` to install the JS dependancies in node_modules folder
+`npm install` to install the JS dependencies in node_modules folder
 
 Configure your .env file.
 
@@ -36,15 +36,15 @@ WEATHERSTACK_API_KEY=....
 
 Make sure you have your server, php and mysql running (Latest XAMPP for example). Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost`.
 
-## Subscribtion
+## Subscription
 
-To subscibe go to: `/api/subscribe?email=your@email.com&location=your_location_or_coordinates`
+To subscribe go to: `/api/subscribe?email=your@email.com&location=your_location_or_coordinates`
 
 For example: `/api/subscribe?email=your@email.com&location=sofia`
 
 or with coordinates: `/api/subscribe?email=your@email.com&location=40.7831,-73.9712`
 
-After you subscribe you should receive an email confirming your subscribtion and a link to unsubscribe.
+After you subscribe you should receive an email confirming your subscription and a link to unsubscribe.
 
 To unsubscribe go to: `/api/unsubscribe?email=your@email.com`
 
@@ -86,7 +86,7 @@ The logic for sending the weather report emails is here: `app\Console\Commands\S
 
 **TODOs**
 
-In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the qieue for the failed emails.
+In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the queue for the failed emails.
 
 ## Emails
 
