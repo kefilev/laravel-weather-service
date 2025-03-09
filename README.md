@@ -1,18 +1,42 @@
-# Laravel Weather Service App
+# Laravel 12 - Weather Service App
 
 This is a simple weather service that lets users subscribe to the service and receive everyday weather reports. The app uses weatherstack.com to retrive weather data. 
 
+## Requirements
+
+PHP 8.2 and MySQL, composer, artisan
+
+## Configuration
+
+Configure your .env file. For example:
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=....
+MAIL_PASSWORD=....
+
+#additional stuff
+WEATHERSTACK_ADDRESS=https://api.weatherstack.com
+WEATHERSTACK_API_KEY=....
+```
+
+## Running the app
+
+Make sure you have your server, php and mysql running (Latest XAMPP for example). Upload the content in the root folder and run in the console `php artisan migrate` to create the database. Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost` or `http://localhost/laravel-weather/public`.
+
 ## Subscribtion
 
-To subscibe go to `http://localhost/api/subscribe?email=your@email.com&location=your_location_or_coordinates`
+To subscibe go to: `/api/subscribe?email=your@email.com&location=your_location_or_coordinates`
 
-For example: `http://localhost/api/subscribe?email=your@email.com&location=sofia`
+For example: `/api/subscribe?email=your@email.com&location=sofia`
 
-or with coordinates `http://localhost/api/subscribe?email=your@email.com&location=40.7831,-73.9712`
+or with coordinates: `/api/subscribe?email=your@email.com&location=40.7831,-73.9712`
 
 After you subscribe you should receive an email confirming your subscribtion and a link to unsubscribe.
 
-To unsubscribe go to: `http://localhost/api/unsubscribe?email=your@email.com`
+To unsubscribe go to: `/api/unsubscribe?email=your@email.com`
 
 For more realistic scenario an encrypted key for each user may be included in the unsubscribe link.
 
@@ -44,5 +68,15 @@ We use task scheduling to send the weather reports daily. For local development 
 
 `php artisan schedule:work`
 
-The schedule is defined in the routes/console.php file
+The schedule is defined in the routes/console.php file. To test if the emails are coming you can change `daily` function to `everyMinute`.
+
+The logic for sending the weather report emails is here: `app\Console\Commands\SendWeatherReportEmails.php`
+
+**TODOs**
+
+In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the qieue for the failed emails. If we have many users subscribed for the same location we may group them and send their email in one blast.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 

@@ -34,9 +34,7 @@ class SendWeatherReportEmails extends Command
         Log::debug('SendWeatherReportEmails command triggered');
 
         foreach ($subscribers as $subscriber) {
-            $address = config('services.weatherstack.address');
-            $api_key = config('services.weatherstack.api_key');
-            $url = "$address/current?access_key=$api_key&query=$subscriber->location";
+            $url = $this->getWeatherStackUrl($subscriber);
 
             try {
                 //Get weather data from API
@@ -54,6 +52,14 @@ class SendWeatherReportEmails extends Command
                 Log::error('SendWeatherReportEmails weatherstack API problem: ' . $e->getMessage());
                 //TODO try again or put in queue
             }
-        } 
+        }
+    }
+
+    private function getWeatherStackUrl($subscriber): string
+    {
+        $address = config('services.weatherstack.address');
+        $api_key = config('services.weatherstack.api_key');
+
+        return "$address/current?access_key=$api_key&query=$subscriber->location";
     }
 }
