@@ -1,10 +1,10 @@
-# Laravel 12 - Weather Service App
+# Laravel email subscription service App for automatic weather reports
 
-This is a simple weather service that lets users subscribe to the service and receive everyday weather reports. The app uses weatherstack.com to retrive weather data. 
+This is a simple weather subscription service built with Laravel 12 that lets users subscribe to the service trough API (using get requests) and receive everyday weather reports by email. The app uses weatherstack.com to retrive weather data but can easily be configured to use any other service.
 
 ## Requirements
 
-PHP 8.2 and MySQL, composer, artisan
+Web `server` like Apache, nginx or XAMPP with `PHP 8.2` and `MySQL`. Also install `composer` and `artisan` (if you install Laravel globaly from the Laravel Installer this will include artisan for your system).
 
 ## Configuration
 
@@ -28,9 +28,13 @@ WEATHERSTACK_ADDRESS=https://api.weatherstack.com
 WEATHERSTACK_API_KEY=....
 ```
 
+`php artisan key:generate` to generate encryption key for Laravel
+
+`php artisan migrate` to create the database
+
 ## Running the app
 
-Make sure you have your server, php and mysql running (Latest XAMPP for example). Upload the content in the root folder and run in the console `php artisan migrate` to create the database. Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost`.
+Make sure you have your server, php and mysql running (Latest XAMPP for example). Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost`.
 
 ## Subscribtion
 
@@ -50,7 +54,7 @@ For more realistic scenario an encrypted key for each user may be included in th
 
 One additional test file (WeatherAPITest.php) is included in the tests/Feature directory. WeatherAPITest.php does HTTP tests for the API subscribe and unsubscribe endpoints using PHPUnit.
 
-To run the tests execute `php artisan test` in the console
+To run the tests execute `php artisan test` in the console.
 
 For tests to pass the `APP_URL` .env variable should point to `http://localhost`. If changing the .env or other configurations make sure to execute `php artisan config:clear` before running tests.
 
@@ -82,7 +86,7 @@ The logic for sending the weather report emails is here: `app\Console\Commands\S
 
 **TODOs**
 
-In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the qieue for the failed emails. If we have many users subscribed for the same location we may group them and send their email in one blast.
+In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the qieue for the failed emails.
 
 ## Emails
 
