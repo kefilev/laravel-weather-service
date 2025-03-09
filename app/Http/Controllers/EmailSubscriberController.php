@@ -27,8 +27,6 @@ class EmailSubscriberController extends Controller
             //TODO
             if ($saved) {
                 NewSubscriberMailJob::dispatch($subscriber);
-                // $subscriber->is_notified = true;
-                // $subscriber->save();
             }
 
         } catch (\Exception $e) {
@@ -48,8 +46,8 @@ class EmailSubscriberController extends Controller
                 'email' => 'bail|required||email:rfc,dns|exists:email_subscribers'
             ]);
 
-            //Soft Delete from DB
-            EmailSubscriber::where('email', $validated['email'])->delete();
+            //forceDelete from DB the unsubscribed users
+            EmailSubscriber::where('email', $validated['email'])->forceDelete();
 
             //Schedule a notification to let the subscriber know that he is no longer a subscriber
             //TODO
