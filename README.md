@@ -8,7 +8,13 @@ PHP 8.2 and MySQL, composer, artisan
 
 ## Configuration
 
-Configure your .env file. For example:
+Run in console:
+
+`composer install` to install the PHP dependancies in vendor folder
+
+`npm install` to install the JS dependancies in node_modules folder
+
+Configure your .env file.
 
 ```
 MAIL_MAILER=smtp
