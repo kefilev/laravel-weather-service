@@ -24,7 +24,7 @@ WEATHERSTACK_API_KEY=....
 
 ## Running the app
 
-Make sure you have your server, php and mysql running (Latest XAMPP for example). Upload the content in the root folder and run in the console `php artisan migrate` to create the database. Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost` or `http://localhost/laravel-weather/public`.
+Make sure you have your server, php and mysql running (Latest XAMPP for example). Upload the content in the root folder and run in the console `php artisan migrate` to create the database. Then make sure you see the Laravel 12 homepage on the browser by visiting `http://localhost`.
 
 ## Subscribtion
 
@@ -45,6 +45,8 @@ For more realistic scenario an encrypted key for each user may be included in th
 One additional test file (WeatherAPITest.php) is included in the tests/Feature directory. WeatherAPITest.php does HTTP tests for the API subscribe and unsubscribe endpoints using PHPUnit.
 
 To run the tests execute `php artisan test` in the console
+
+For tests to pass the `APP_URL` .env variable should point to `http://localhost`. If changing the .env or other configurations make sure to execute `php artisan config:clear` before running tests.
 
 ## Database structure
 
@@ -75,6 +77,14 @@ The logic for sending the weather report emails is here: `app\Console\Commands\S
 **TODOs**
 
 In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the qieue for the failed emails. If we have many users subscribed for the same location we may group them and send their email in one blast.
+
+## Emails
+
+Email design is done by blade and views are located in resources/views/email folder.
+
+![Welcome email](email-screenshot.jpg)
+
+![Weather Report email](weather-report-email-screenshot.jpg)
 
 ## License
 
