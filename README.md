@@ -76,19 +76,21 @@ To send the welcome emails to subscribers we use queue worker. To run the queue:
 
 ## Sending the weather report emails
 
-We use task scheduling to send the weather reports daily. For local development we can run the schedule for sending weather reports like this:
+We use task scheduling with a queue worker to send the weather reports daily. For local development we can run the schedule for sending weather reports like this:
 
 `php artisan schedule:work`
+
+Also make sure the queue is running:
+
+`php artisan queue:work`
 
 The schedule is defined in the routes/console.php file. To test if the emails are coming you can change `daily` function to `everyMinute`.
 
 The logic for sending the weather report emails is here: `app\Console\Commands\SendWeatherReportEmails.php`
 
-**TODOs**
-
-In real world we may have a lot of subscribers. In such a case we may need to use queue job for each email with a weather report and then use the schedule to start executing the queue. In such a case we would be able to rerun the queue for the failed emails.
-
 ## Emails
+
+In this app we use Mailables to send emails only. If you need to use different channels to send Weather Reports you can use Laravel Notifications.
 
 Email design is done by blade and views are located in resources/views/email folder.
 
