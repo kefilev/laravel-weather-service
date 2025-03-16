@@ -31,7 +31,7 @@ class EmailSubscriberController extends Controller
             }
 
         } catch (\Exception $e) {
-            // return eror
+            // return error
             return response()->json(['error' => $e->getMessage()], 400);
         }
 
@@ -53,7 +53,7 @@ class EmailSubscriberController extends Controller
             //Schedule a notification to let the subscriber know that he is no longer a subscriber
             //TODO
         } catch (\Exception $e) {
-            // return eror
+            // return error
             return response()->json(['error' => $e->getMessage()], 400);
         }
 

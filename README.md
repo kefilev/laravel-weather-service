@@ -68,13 +68,15 @@ To run the migrations execute in the console:
 
 `php artisan migrate`
 
-## Sending the welcome emails to subscribers
+## Sending the emails to subscribers
 
-To send the welcome emails to subscribers we use queue worker. To run the queue:
+To send the email verification messages and weather reports to subscribers we use queue worker. To run the queue:
 
 `php artisan queue:work`
 
 ## Sending the weather report emails
+
+Only users that have verified their email address will receive weather reports.
 
 We use task scheduling with a queue worker to send the weather reports daily. For local development we can run the schedule for sending weather reports like this:
 
@@ -93,8 +95,6 @@ The logic for sending the weather report emails is here: `app\Console\Commands\S
 In this app we use Mailables to send emails only. If you need to use different channels to send Weather Reports you can use Laravel Notifications.
 
 Email design is done by blade and views are located in resources/views/email folder.
-
-![Welcome email](email-screenshot.jpg)
 
 ![Weather Report email](weather-report-email-screenshot.jpg)
 
