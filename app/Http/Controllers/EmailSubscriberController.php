@@ -6,6 +6,7 @@ use App\Jobs\NewSubscriberMailJob;
 use App\Models\EmailSubscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Events\Registered;
 
 class EmailSubscriberController extends Controller
 {
@@ -23,10 +24,10 @@ class EmailSubscriberController extends Controller
             $subscriber->location = $request->query('location');
             $saved = $subscriber->save();
 
-            //Schedule a notification email to let the subscriber know that he has subscibed
+            //Schedule a notification email to let the subscriber know that he has subscribed
             //TODO
             if ($saved) {
-                NewSubscriberMailJob::dispatch($subscriber);
+                event(new Registered($subscriber)); //dispatch an event, so an automatic email verification email will be sent
             }
 
         } catch (\Exception $e) {

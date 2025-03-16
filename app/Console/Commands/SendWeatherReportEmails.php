@@ -30,7 +30,7 @@ class SendWeatherReportEmails extends Command
      */
     public function handle()
     {
-        $subscribers = EmailSubscriber::all();
+        $subscribers = EmailSubscriber::whereNotNull('email_verified_at')->get();
         Log::debug('SendWeatherReportEmails command triggered');
 
         foreach ($subscribers as $subscriber) {
